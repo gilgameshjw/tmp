@@ -5,7 +5,7 @@
 Automatised code generation from diagrams using Large Language Models.
 
 * Basis is a combination of diagrams with nodes explained in natural language and test data in combination
-* Automatised code generation arises in interaction with natural language models
+* Automatised code generation arises in interaction with large language models
  
 
 ### Solution
@@ -43,4 +43,7 @@ resources/FullDemo.pdf  resources/FullDemo.png`
 2. run or and generate code (if files not available in `/snippets`):
 `julia run.jl --path-model resources/FullDemoWithTest.dat --text "abcdz hgq"`
 
+### Test Data
 
+Test Data is used to finetune the generated code and make sure it works as expected. 
+See file `resources/FUllDemoWithTestData.csv`.
