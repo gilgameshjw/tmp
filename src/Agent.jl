@@ -36,8 +36,8 @@ function processNode(node::Node,
 
             # generate initial function with chatgpt
             generateFunctionCode(command,
-                                        dicCODE, 
-                                        dicTESTS)
+                                 dicCODE, 
+                                 dicTESTS)
             # run tests
             runTests(command,
                      dicCODE[command].tests, 
@@ -88,9 +88,9 @@ function runAgent(node::Node,
             graph = dicBRAINS[label].children[1]
         
             data = runAgent(graph,
-                         dicBRAINS,
-                         dfNodes,
-                         data)
+                            dicBRAINS,
+                            dfNodes,
+                            data)
             
             data["brain"] = name
             @info "back to brain:: ", name
