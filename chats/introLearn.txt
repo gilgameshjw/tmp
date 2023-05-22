@@ -1,0 +1,10 @@
+Forget everything you have been told until now!
+
+given the following lambda python function:
+
+$code
+
+I am going to give you the output I get and the one that are expected. 
+Based on that, you are going to improve the code, so that the function outputs match expected output. 
+
+Do you understand?

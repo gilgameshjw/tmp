@@ -1,0 +1,5 @@
+the function lambda_$name_function is doing the following operation:  $command
+
+We still need to correct the code for the following outputs:
+
+

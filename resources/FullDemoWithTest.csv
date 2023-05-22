@@ -1,0 +1,25 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Status,Text Area 1,Test Data
+1,Document,,,,,,,,,,Full Demo,null
+2,Page,,,,,,,,,,Page 1,null
+3,Curly Brace Note,Flowchart Shapes,2,,,,,,,,Mapping,null
+4,Process,Flowchart Shapes,2,,,,,,,,map z to @,"[[{""wrd"":""slsls""},{""wrd"":""slsls""}],[{""wrd"":""slzls""},{""wrd"":""sl@ls""}],[{""wrd"":""""},{""wrd"":""""}],[{""wrd"":""z""},{""wrd"":""@""}]]"
+5,Decision,Flowchart Shapes,2,,,,,,,,has word the char z? return yes or no string,"[[{""wrd"":""slsls""},{""state"":""no""}],[{""wrd"":""slzls""},{""state"":""yes""}],[{""wrd"":""""},{""state"":""no""}]]"
+6,Process,Flowchart Shapes,2,,,,,,,,map all characters of the string to the next one in the alphabet and map the character @ to a,"[[{""wrd"":""a""},{""res"":""b""}],[{""wrd"":""z""},{""res"":""a""}],[{""wrd"":""zz""},{""res"":""aa""}],[{""wrd"":""zzz""},{""res"":""aaa""}],[{""wrd"":""b""},{""res"":""c""}]]"
+7,Curly Brace Note,Flowchart Shapes,2,,,,,,,,Transliteration,null
+8,Process,Flowchart Shapes,2,,,,,,,,process each word with #mapping,null
+9,Process,Flowchart Shapes,2,,,,,,,,bind transliterated words together,"[[{""l_transl_wrds"":[""b"",""b""]},{""txt"":""bb""}],[{""l_transl_wrds"":[""r"",""a""]},{""txt"":""ra""}],[{""l_transl_wrds"":[]},{""txt"":""""}],[{""l_transl_wrds"":[""r""]},{""txt"":""r""}],[{""l_transl_wrds"":[""r"",""a"",""d""]},{""txt"":""rad""}]]"
+10,Curly Brace Note,Flowchart Shapes,2,,,,,,,,Preprocessor,null
+11,Process,Flowchart Shapes,2,,,,,,,,Normalize the text!,null
+12,Process,Flowchart Shapes,2,,,,,,,,Tokenize the text!,null
+13,Terminator,Flowchart Shapes,2,,,,,,,,Preprocessor,null
+14,Process,Flowchart Shapes,2,,,,,,,,just output the result,"[[{""txt"":""blabla""},{""res"":""blabla""}],[{""txt"":""radwasdcs""},{""res"":""radwasdcs""}]]"
+15,Line,,2,,,5,4,None,Arrow,,Yes,null
+16,Line,,2,,,5,6,None,Arrow,,No,null
+17,Line,,2,,,3,5,None,Arrow,,,null
+18,Line,,2,,,4,6,None,Arrow,,,null
+19,Line,,2,,,8,9,None,Arrow,,,null
+20,Line,,2,,,10,11,None,Arrow,,,null
+21,Line,,2,,,11,12,None,Arrow,,,null
+22,Line,,2,,,7,13,None,Arrow,,,null
+23,Line,,2,,,13,8,None,Arrow,,,null
+24,Line,,2,,,9,14,None,Arrow,,,null
