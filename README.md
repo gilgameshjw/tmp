@@ -2,10 +2,10 @@
 
 
 ### Task & Pbm
-Automatised code generation from diagrams using Large Language Models.
+Automatised code generation from diagrams using Large Language Models:
 
-* Basis is a combination of diagrams with nodes explained in natural language and test data in combination
-* Automatised code generation arises in interaction with large language models
+* The basis for the code is a combination of diagrams with nodes described with natural language snippets and test data
+* Automatised code generation is realised in interaction with large language models
  
 
 ### Solution
@@ -37,6 +37,8 @@ resources/FullDemo.pdf  resources/FullDemo.jpg`
 
 
 ![Alt text](/resources/FullDemo.jpg "a title")
+
+Notice that **Transliteration** is the entry point.
 
 
 ### Run
