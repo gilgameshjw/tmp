@@ -1,4 +1,9 @@
 
+#=========================================================
+    SCRIPT RUNNING/GENERATING THE CODE
+=========================================================#
+
+
 using Graphs
 using CSV
 using DataFrames
@@ -10,11 +15,13 @@ using PyCall
 
 include("src/Graphs.jl")
 include("src/Agent.jl")
-include("src/Rules.jl")
 include("src/Utilities.jl")
 include("src/interfaceLLM.jl")
 
 
+"""
+    Parse command line arguments
+"""
 function parse_commandline()
 
     s = ArgParseSettings()
@@ -39,9 +46,6 @@ parsedArgs = parse_commandline()
 # load brain data
 pathModel = parsedArgs["path-model"]
 data = deserialize(pathModel)
-#pathModelTest = split(pathModel, ".dat")[1] * "Test.dat"
-#dicTESTS = deserialize(pathModelTest)
-
 
 # parse config & set up global params
 config = YAML.load_file("config.yml")
@@ -53,7 +57,6 @@ generateJuliaCode = config["generateJuliaCode"]
 # start open ai
 openai = pyimport("openai")
 openai.api_key = openaiKey
-
 
 # set up players
 entryBrain = data[:entry]
@@ -67,7 +70,6 @@ data = Dict{String, Any}(
             "txt" => parsedArgs["text"],
             "state" => nothing, # used for messages back to system
             "brain" => entryBrain)
-
 
 # run agent
 result = runAgent(graph.children[1],

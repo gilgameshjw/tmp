@@ -30,10 +30,14 @@ examples:
 
 ### Diagrams
 
-The task above has been implemented in lucidchart into the following diagrams:
+The task above has been implemented in lucidchart into the following subdiagrams:
 
 `ls resources/FullDemo.p*
 resources/FullDemo.pdf  resources/FullDemo.png`
+
+
+![Alt text](/resources/FullDemo.png "a title")
+
 
 ### Run
 
@@ -46,4 +50,5 @@ resources/FullDemo.pdf  resources/FullDemo.png`
 ### Test Data
 
 Test Data is used to finetune the generated code and make sure it works as expected. 
-See file `resources/FUllDemoWithTestData.csv`.
+See **Test Data** in:
+`resources/FUllDemoWithTestData.csv`.

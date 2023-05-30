@@ -1,4 +1,9 @@
 
+#=========================================================
+    SCRIPT RUNNING THE PARSING & PROCESSING OF CSVS
+=========================================================#
+
+
 using Graphs
 using CSV
 using JSON
@@ -12,7 +17,9 @@ include("src/Agent.jl")
 include("src/Rules.jl")
 
 
-
+"""
+    Parse command line arguments
+"""
 function parse_commandline()
 
     s = ArgParseSettings()
@@ -35,8 +42,8 @@ function parse_commandline()
 end
 
 
+# Set up variables
 parsedArgs = parse_commandline()
-
 
 modelName = parsedArgs["path-model"]
 brainEntry = lowercase(parsedArgs["brain-entry"])
@@ -46,8 +53,10 @@ entryFound = false
 df = Nothing
 S = 0
 
+# Parse either directory (with multiple csv's) or single csv
 if !isnothing(get(parsedArgs, "dir-path-lucidchart-csv", nothing))
 
+    # Parse directory and extract+process all csv's
     @info "PROCESSING DIR::", parsedArgs["dir-path-lucidchart-csv"]
     dirName = parsedArgs["dir-path-lucidchart-csv"]
 
@@ -67,6 +76,7 @@ if !isnothing(get(parsedArgs, "dir-path-lucidchart-csv", nothing))
 
 else
 
+    # Parse single file
     @info "PROCESSING FILE::", parsedArgs["path-lucidchart-csv"]
     df = DataFrame(CSV.File(parsedArgs["path-lucidchart-csv"]))
 
@@ -76,10 +86,10 @@ end
 # Preprocess Nodes
 df[!,"Label"] = map(x -> ismissing(x) ? Missing : lowercase(x), df[!,"Text Area 1"])
 
+# Build up data structure
 dfNodes = filter(row -> row.Name in ["Decision", "Process", "Terminator"], df)
 dfArrows = filter(row -> row.Name in ["Line"], df);
 dfBrains = filter(row -> row.Name in ["Curly Brace Note"], df);
-
 dicTESTS =
 
     if "Test Data" in names(df)
@@ -109,13 +119,13 @@ if !(brainEntry in brainsList)
 
 end
 
-for b in brainsList
+for brain in brainsList
 
-    @info "build brain: ", b
+    @info "build brain: ", brain
 
     # try
 
-        dicBRAINS[b] = get_node(b, dfBrains) |>
+        dicBRAINS[brain] = get_node(brain, dfBrains) |>
                 (D ->
                     (n=Node(D, nothing); n.x[:depth]=0; n)) |>
                     (N ->
@@ -123,15 +133,17 @@ for b in brainsList
 
     # catch
 
-    #    @error "error! brain : ", b
+    #    @error "error! brain : ", brain
 
     # end
 
 end
 
-
-serialize(modelName, Dict(:dicBrains => dicBRAINS,
-                          :dfNodes => dfNodes,
-                          :entry => brainEntry,
-                          :tests => dicTESTS))
-println("data saved to: ", modelName)
+# Serialize data
+serialize(modelName, 
+          Dict(:dicBrains => dicBRAINS,
+               :dfNodes => dfNodes,
+               :entry => brainEntry,
+               :tests => dicTESTS))
+               
+@info "data saved to: ", modelName
