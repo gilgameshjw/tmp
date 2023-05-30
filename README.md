@@ -33,7 +33,7 @@ examples:
 The task above has been implemented in lucidchart into the following subdiagrams:
 
 `ls resources/FullDemo.p*
-resources/FullDemo.pdf  resources/FullDemo.png`
+resources/FullDemo.pdf  resources/FullDemo.jpg`
 
 
 ![Alt text](/resources/FullDemo.jpg "a title")
