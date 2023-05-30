@@ -36,7 +36,7 @@ The task above has been implemented in lucidchart into the following subdiagrams
 resources/FullDemo.pdf  resources/FullDemo.png`
 
 
-![Alt text](/resources/FullDemo.png "a title")
+![Alt text](/resources/FullDemo.jpg "a title")
 
 
 ### Run
