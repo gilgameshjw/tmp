@@ -54,6 +54,7 @@ openaiKey = config["openaiKey"]
 numberCorrectionLoops = config["numberCorrectionLOOPS"]
 generateJuliaCode = config["generateJuliaCode"]
 
+
 # start open ai
 openai = pyimport("openai")
 openai.api_key = openaiKey
@@ -63,6 +64,7 @@ entryBrain = data[:entry]
 dicBRAINS = data[:dicBrains]
 dfNodes = data[:dfNodes]
 dicTESTS = data[:tests]
+dicCODE = data[:dicCode]
 graph = dicBRAINS[entryBrain]
 
 # data to be transformed within the tree flows

@@ -23,9 +23,9 @@ end
 """
 mutable struct FunctionGenerator
 
-    fct::Function
-    meta::Dict{Symbol, Vector{String}}
-    tests::Union{Dict, Nothing}
+    fct::Union{Function, Nothing}
+    meta::Union{Dict{Symbol, Vector{String}}, Dict{Symbol, Dict{String, Any}}, Nothing}
+    tests::Union{Dict{Symbol, Dict{String, Any}}, Nothing}
 
 end
 
@@ -70,6 +70,8 @@ function createTree(node::Union{Node, Nothing},
                     dfNodes::DataFrame,
                     dfArrows::DataFrame,
                     dfBrains::DataFrame,
+                    dicTESTS::Dict{String, Dict{Symbol, Dict{String, Any}}},
+                    dicMETA::Dict{String, Dict{Symbol, Dict{String, Any}}},
                     history::Vector{Node} = Node[])
 
     if node != nothing
@@ -83,6 +85,19 @@ function createTree(node::Union{Node, Nothing},
 
         if !haskey(dicCODE, node.x[:Label]) &
                 !(node.x[:Label] in dfBrains[!, "Label"])
+            
+            label = node.x[:Label] |> lowercase
+            if dicTESTS == nothing || dicMETA == nothing
+                
+                dicCODE[key] = FunctionGenerator(nothing, nothing, nothing)
+            
+            else       
+
+                dicCODE[label] = FunctionGenerator(nothing, 
+                                                 haskey(dicTESTS, label) ? dicTESTS[label] : nothing, 
+                                                 haskey(dicMETA, label) ? dicMETA[label] : nothing)
+            
+            end
 
             @warn "unimplemented Node:: Id", node.x[:Id], " Name: " , node.x[:Label]
 
@@ -102,6 +117,7 @@ function createTree(node::Union{Node, Nothing},
                             Node(get_node(ix, dfNodes, node.x[:depth]+1),
                                  nothing),
                             dfNodes, dfArrows, dfBrains,
+                            dicTESTS, dicMETA,
                             [history;[node]])
 
                     end,

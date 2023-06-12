@@ -11,10 +11,8 @@ using DataFrames
 using ArgParse
 using Serialization
 
-
 include("src/Graphs.jl")
 include("src/Agent.jl")
-include("src/Rules.jl")
 
 
 """
@@ -48,6 +46,9 @@ parsedArgs = parse_commandline()
 modelName = parsedArgs["path-model"]
 brainEntry = lowercase(parsedArgs["brain-entry"])
 entryFound = false
+
+# command => Functor  
+dicCODE = Dict{String, FunctionGenerator}()
 
 # Parse csv data
 df = Nothing
@@ -90,21 +91,42 @@ df[!,"Label"] = map(x -> ismissing(x) ? Missing : lowercase(x), df[!,"Text Area 
 dfNodes = filter(row -> row.Name in ["Decision", "Process", "Terminator"], df)
 dfArrows = filter(row -> row.Name in ["Line"], df);
 dfBrains = filter(row -> row.Name in ["Curly Brace Note"], df);
+
+
+# collect meta data
+dicMETA =
+
+    if "Meta Data" in names(df)
+
+        filter(kv -> Bool(!ismissing(kv[1]) && !ismissing(kv[2])), 
+       collect(zip(df[:,"Text Area 1"], df[:,"Meta Data"]))) |>
+            (KVs -> map(kv -> (kv[1] |> lowercase, Dict(:meta => kv[2] |> JSON.parse)),
+                        KVs)) |> Dict
+
+    else
+
+        @warn "meta data were not found in the dataframe!"
+        nothing
+
+    end
+
+# collect tests data
 dicTESTS =
 
     if "Test Data" in names(df)
 
-        filter(kv -> Bool(!ismissing(kv[1])), 
-           collect(zip(df[:,"Text Area 1"], df[:,"Test Data"]))) |>
+        filter(kv -> Bool(!ismissing(kv[1]) && !ismissing(kv[2])), 
+       collect(zip(df[:,"Text Area 1"], df[:,"Test Data"]))) |>
             (KVs -> map(kv -> (kv[1] |> lowercase, Dict(:tests => kv[2] |> JSON.parse)),
                         KVs)) |> Dict
 
     else
 
-        @warn "tests were not found in the dataframe"
+        @warn "tests were not found in the dataframe!"
         nothing
 
     end
+
 
 dicBRAINS = Dict{String, Node}()
 
@@ -129,7 +151,8 @@ for brain in brainsList
                 (D ->
                     (n=Node(D, nothing); n.x[:depth]=0; n)) |>
                     (N ->
-                         createTree(N, dfNodes, dfArrows, dfBrains))
+                         createTree(N, dfNodes, dfArrows, dfBrains, 
+                                    dicTESTS, dicMETA))
 
     # catch
 
@@ -144,6 +167,11 @@ serialize(modelName,
           Dict(:dicBrains => dicBRAINS,
                :dfNodes => dfNodes,
                :entry => brainEntry,
-               :tests => dicTESTS))
+               :tests => dicTESTS, 
+               :dicCode => dicCODE))
                
 @info "data saved to: ", modelName
+
+
+println("#################################")
+println("#################################")
