@@ -1,0 +1,13 @@
+User
+I would like to write a code that transliterate text with the following model:
+each character is transformed into the next one:
+$model
+
+I would like you to create a diagram of necessary steps to write a code realising the above. Be verbose in the description. You can be creative with the approach.
+
+Express the diagram in csv format with a unique column "id,description".
+
+Return the csv data only, no additional text.
+
+
+

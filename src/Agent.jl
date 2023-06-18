@@ -19,9 +19,7 @@ function processNode(node::Node,
 
         # check that fields in data are within ⊂ node's metadata.
         states = collect(keys(data))
-        println(keys(dicCODE))
-        println("command::", command)
-        println(dicCODE[command].meta)
+
         unrecFields =
             filter(s -> !(s in states), 
                    dicCODE[command].meta[:in])

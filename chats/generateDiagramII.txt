@@ -1,0 +1,3 @@
+On each line, add two additional columns with the following test data for the corresponding description:
+1. input: input data to be tested for the corresponding description, create a few example in a list between [] and separated with ,
+2. output: output data corresponding to the input data after transformation with the description, also in format between [] and separated with ,  
